@@ -18,7 +18,7 @@ class ThreeScaleResponse {
    *
    * @return true if yes, false if not
    *
-   * If the response is not successful, the getErrorCode() and getErrorMessage() methods 
+   * If the response is not successful, the getErrorCode() and getErrorMessage() methods
    * return more more detailed information about the error.
    */
   public function isSuccess() {
@@ -33,7 +33,7 @@ class ThreeScaleResponse {
   public function getErrorCode() {
     return $this->errorCode;
   }
-  
+
   /**
    * Human readable error message.
    *
@@ -59,5 +59,3 @@ class ThreeScaleResponse {
     $this->errorMessage = $message;
   }
 }
-
-?>

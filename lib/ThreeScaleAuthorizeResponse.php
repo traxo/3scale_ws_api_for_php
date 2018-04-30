@@ -54,7 +54,7 @@ class ThreeScaleAuthorizeResponse extends ThreeScaleResponse {
 }
 
 /**
- * Object with information about application's usage and how close it is to meeting 
+ * Object with information about application's usage and how close it is to meeting
  * the limits.
  *
  * One object of this class always corresponds to one usage limit defined on the plan.
@@ -85,7 +85,7 @@ class ThreeScaleAuthorizeResponseUsageReport {
   }
 
   /**
-   * The period of the usage limit. 
+   * The period of the usage limit.
    *
    * @returns string
    *
@@ -172,12 +172,10 @@ class ThreeScaleAuthorizeResponseUsageReport {
     return $this;
   }
 
-  /** 
+  /**
    * Is the usage limit corresponding to this report exceeded?
    */
   public function isExceeded() {
     return $this->getCurrentValue() > $this->getMaxValue();
   }
 }
-
-?>

@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 /*
 ** Defines ThreeScaleVersion class
@@ -11,5 +11,3 @@ class ThreeScaleVersion {
 		return $this->version;
 	}
 }
-
-?>

@@ -38,7 +38,7 @@ class ThreeScaleClient {
   public function __construct($providerKey = null, $host = self::DEFAULT_ROOT_ENDPOINT, $httpClient = null) {
     if ($providerKey) {
       $this->providerKey = $providerKey;
-    } 
+    }
 
     $this->setHttpClient($httpClient);
     $this->host   = $host;
@@ -93,7 +93,7 @@ class ThreeScaleClient {
    *   ?>
    * </code>
    */
-  
+
      public function authorize($appId, $appKey = null, $credentials_or_service_id, $usage = null) {
     $url =  $this->getHost() . "/transactions/authorize.xml";
     $params = array('app_id' => $appId);
@@ -109,11 +109,11 @@ class ThreeScaleClient {
     if ($appKey) {
       $params['app_key'] = $appKey;
     }
-    
+
     if ($usage) {
       $params['usage'] = $usage;
     }
-    
+
     $httpResponse = $this->httpClient->get($url, $params);
     if (self::isHttpSuccess($httpResponse)) {
       return $this->buildAuthorizeResponse($httpResponse->body);
@@ -171,7 +171,7 @@ class ThreeScaleClient {
     if ($usage) {
       $params['usage'] = $usage;
     }
-    
+
     $httpResponse = $this->httpClient->get($url, $params);
 
     if (self::isHttpSuccess($httpResponse)) {
@@ -180,7 +180,7 @@ class ThreeScaleClient {
       return $this->processError($httpResponse);
     }
   }
-  
+
 
   /**
    * Authorize an application for user key auth mode
@@ -218,7 +218,7 @@ class ThreeScaleClient {
   public function authorize_with_user_key($userKey, $credentials_or_service_id, $usage = null) {
     $url = $this->getHost() . "/transactions/authorize.xml";
     $params = array('user_key' => $userKey);
-    
+
     if ($credentials_or_service_id instanceof ThreeScaleClientCredentials ) {
       $params['service_token'] = $credentials_or_service_id->service_token;
       $params['service_id'] = $credentials_or_service_id->service_id;
@@ -275,7 +275,7 @@ class ThreeScaleClient {
    * </code>
    */
 
-   public function authrep($appId, $appKey = null, $credentials_or_service_id, $usage = null, $userId = null, $object = null, $no_body = null) {  
+   public function authrep($appId, $appKey = null, $credentials_or_service_id, $usage = null, $userId = null, $object = null, $no_body = null) {
     $url = $this->getHost() . "/transactions/authrep.xml";
 
     $params = array('app_id' => $appId);
@@ -287,13 +287,13 @@ class ThreeScaleClient {
       $params['provider_key'] = $this->getProviderKey();
       $params['service_id'] = $credentials_or_service_id;
     }
-   
+
     if ($appKey) $params['app_key'] = $appKey;
     if ($userId) $params['user_id'] = $userId;
     if ($object) $params['object'] = $object;
     if ($usage) $params['usage'] = $usage;
     if ($no_body) $params['no_body'] = $no_body;
-     
+
     $httpResponse = $this->httpClient->get($url, $params);
 
     if (self::isHttpSuccess($httpResponse)) {
@@ -301,7 +301,7 @@ class ThreeScaleClient {
     } else {
       return $this->processError($httpResponse);
     }
-    
+
   }
 
   /**
@@ -337,7 +337,7 @@ class ThreeScaleClient {
    * </code>
    */
 
-  public function authrep_with_user_key($userKey, $credentials_or_service_id, $usage = null, $userId = null, $object = null, $no_body = null) {  
+  public function authrep_with_user_key($userKey, $credentials_or_service_id, $usage = null, $userId = null, $object = null, $no_body = null) {
     $url = $this->getHost() . "/transactions/authrep.xml";
 
     $params = array('user_key' => $userKey);
@@ -351,13 +351,13 @@ class ThreeScaleClient {
       $params['provider_key'] = $this->getProviderKey();
       $params['service_id'] = $credentials_or_service_id;
     }
-     
+
     if ($userId) $params['user_id'] = $userId;
     if ($object) $params['object'] = $object;
     if ($usage) $params['usage'] = $usage;
     if ($no_body) $params['no_body'] = $no_body;
-    
-     
+
+
     $httpResponse = $this->httpClient->get($url, $params);
 
     if (self::isHttpSuccess($httpResponse)) {
@@ -365,7 +365,7 @@ class ThreeScaleClient {
     } else {
       return $this->processError($httpResponse);
     }
-    
+
   }
 
   /**
@@ -409,7 +409,7 @@ class ThreeScaleClient {
    *   // Report one transaction with timestamp with app_id
    *   $client->report(array(array('app_id'    => 'foo',
    *                               'timestamp' => mktime(15, 14, 00, 2, 27, 2010),
-   *                               'usage'     => array('hits' => 1), 
+   *                               'usage'     => array('hits' => 1),
    *                               'service id')));
    *
    *   // Report two transactions of two applications with user_key
@@ -423,13 +423,13 @@ class ThreeScaleClient {
    *                               'service id')));
    *
    *   ?>
-   * </code>                            
+   * </code>
    */
   public function report($transactions, $credentials_or_service_id) {
     if (empty($transactions)) {
       throw new InvalidArgumentException('no transactions to report');
     }
-    
+
     $url = $this->getHost() . "/transactions.xml";
 
     $params = array();
@@ -444,9 +444,9 @@ class ThreeScaleClient {
     }
 
     $params['transactions'] = $this->encodeTransactions($transactions);
-    
+
     $httpResponse = $this->httpClient->post($url, $params);
-    
+
     if (self::isHttpSuccess($httpResponse)) {
       return new ThreeScaleResponse(true);
     } else {
@@ -528,7 +528,7 @@ class ThreeScaleClient {
       } else {
         if($key == 'timestamp') {
           $new_value = $value;
-        } 
+        }
         else {
           $new_value = urlencode($value);
         }
@@ -594,7 +594,7 @@ class ThreeScaleClientCredentials {
   public $service_token;
 
   public function __construct($service_id, $service_token) {
-   
+
    if (!$service_token){
     throw new InvalidArgumentException('missing $service_token');
    }
@@ -603,6 +603,3 @@ class ThreeScaleClientCredentials {
    $this->service_id=$service_id;
   }
 }
-
-?>
-
